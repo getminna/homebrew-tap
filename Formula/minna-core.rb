@@ -18,6 +18,8 @@ class MinnaCore < Formula
 
       ╭───────────────────────────────╮
       │                               │
+      │   minna installed successfully │
+      │                               │
       │   Run `minna` to get started  │
       │                               │
       ╰───────────────────────────────╯
