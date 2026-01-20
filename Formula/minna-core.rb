@@ -16,18 +16,16 @@ class MinnaCore < Formula
   def caveats
     <<~EOS
 
-      ╭─────────────────────────────────────────────────╮
-      │                                                 │
-      │   ✓ minna installed                             │
-      │                                                 │
-      │   Give your AI memory across your work apps:    │
-      │   Slack · Linear · GitHub · Notion · Jira       │
-      │                                                 │
-      │   Get started:                                  │
-      │                                                 │
-      │     $ minna                                     │
-      │                                                 │
-      ╰─────────────────────────────────────────────────╯
+      ┌────────────────────────────────────────────────┐
+      │                                                │
+      │  ✓ minna installed                             │
+      │                                                │
+      │  Give your AI memory across your work apps     │
+      │  Slack · Linear · GitHub · Notion · Jira       │
+      │                                                │
+      │  $ minna                                       │
+      │                                                │
+      └────────────────────────────────────────────────┘
 
     EOS
   end
