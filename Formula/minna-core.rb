@@ -12,6 +12,23 @@ class MinnaCore < Formula
     bin.install "minna"
   end
 
+  def caveats
+    <<~EOS
+
+      ╭─────────────────────────────────────────╮
+      │                                         │
+      │   minna installed successfully          │
+      │                                         │
+      │   Get started:                          │
+      │   $ minna add slack                     │
+      │                                         │
+      │   Other sources: linear, github, notion │
+      │                                         │
+      ╰─────────────────────────────────────────╯
+
+    EOS
+  end
+
   test do
     system "#{bin}/minna", "--version"
   end
