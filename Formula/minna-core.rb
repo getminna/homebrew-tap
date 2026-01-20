@@ -16,16 +16,11 @@ class MinnaCore < Formula
   def caveats
     <<~EOS
 
-      ╭─────────────────────────────────────────╮
-      │                                         │
-      │   minna installed successfully          │
-      │                                         │
-      │   Get started:                          │
-      │   $ minna add slack                     │
-      │                                         │
-      │   Other sources: linear, github, notion │
-      │                                         │
-      ╰─────────────────────────────────────────╯
+      ╭───────────────────────────────╮
+      │                               │
+      │   Run `minna` to get started  │
+      │                               │
+      ╰───────────────────────────────╯
 
     EOS
   end
