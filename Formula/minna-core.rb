@@ -16,13 +16,18 @@ class MinnaCore < Formula
   def caveats
     <<~EOS
 
-      ╭───────────────────────────────╮
-      │                               │
-      │   minna installed successfully │
-      │                               │
-      │   Run `minna` to get started  │
-      │                               │
-      ╰───────────────────────────────╯
+      ╭─────────────────────────────────────────────╮
+      │                                             │
+      │   ✓ minna installed                         │
+      │                                             │
+      │   Your AI now has memory across:            │
+      │   Slack · Linear · GitHub · Notion · Jira   │
+      │                                             │
+      │   Get started:                              │
+      │     $ minna add        Connect sources      │
+      │     $ minna setup      Configure your AI    │
+      │                                             │
+      ╰─────────────────────────────────────────────╯
 
     EOS
   end
