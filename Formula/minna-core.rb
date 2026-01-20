@@ -1,9 +1,9 @@
 class MinnaCore < Formula
   desc "Your AI's memory. Local-first. Zero config."
   homepage "https://github.com/getminna/minna-core"
-  url "https://github.com/getminna/minna-core/releases/download/v0.1.5/minna-0.1.5-aarch64-apple-darwin.tar.gz"
-  sha256 "5edff67da85d1b50bfdf0e4cd5f8642190c89dd84a4315e4215e6fd1e6e1279a"
-  version "0.1.5"
+  url "https://github.com/getminna/minna-core/releases/download/v0.1.6/minna-0.1.6-aarch64-apple-darwin.tar.gz"
+  sha256 "8f5d7a59537439cf8e08deab603c3755001b156b5800a6894a2659ab93915efc"
+  version "0.1.6"
 
   depends_on arch: :arm64
   depends_on :macos
