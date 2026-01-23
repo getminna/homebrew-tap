@@ -1,0 +1,63 @@
+# Add this file to: minna-core/.github/workflows/release.yml
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: macos-14  # Apple Silicon (M1) runner
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Build release binary
+        run: cargo build --release
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create tarball
+        run: |
+          mkdir -p dist
+          cp target/release/minna dist/
+          cd dist
+          tar -czvf minna-${{ steps.version.outputs.VERSION }}-aarch64-apple-darwin.tar.gz minna
+
+      - name: Calculate SHA256
+        id: sha
+        run: |
+          SHA=$(shasum -a 256 dist/minna-${{ steps.version.outputs.VERSION }}-aarch64-apple-darwin.tar.gz | awk '{print $1}')
+          echo "SHA256=$SHA" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/minna-${{ steps.version.outputs.VERSION }}-aarch64-apple-darwin.tar.gz
+          generate_release_notes: true
+
+      - name: Update Homebrew formula
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        run: |
+          git clone https://x-access-token:${GH_TOKEN}@github.com/getminna/homebrew-tap.git
+          cd homebrew-tap
+
+          # Update the formula
+          sed -i '' "s|url \".*\"|url \"https://github.com/getminna/minna-core/releases/download/v${{ steps.version.outputs.VERSION }}/minna-${{ steps.version.outputs.VERSION }}-aarch64-apple-darwin.tar.gz\"|" Formula/minna-core.rb
+          sed -i '' "s|sha256 \".*\"|sha256 \"${{ steps.sha.outputs.SHA256 }}\"|" Formula/minna-core.rb
+          sed -i '' "s|version \".*\"|version \"${{ steps.version.outputs.VERSION }}\"|" Formula/minna-core.rb
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/minna-core.rb
+          git commit -m "Update minna-core to v${{ steps.version.outputs.VERSION }}"
+          git push
