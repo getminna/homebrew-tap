@@ -5,12 +5,23 @@ class MinnaCore < Formula
   sha256 "cf7f244e5e19b5835d9ff508d251932ce927361c60044698753a2ff62b3ff24f"
   version "0.2.2"
 
+  head "https://github.com/getminna/minna-core.git", branch: "main"
+
   depends_on arch: :arm64
   depends_on :macos
+  depends_on "rust" => :build if build.head?
 
   def install
-    bin.install "minna"
-    bin.install "minna-core"
+    if build.head?
+      cd "engine" do
+        system "cargo", "build", "--release", "-p", "minna-cli", "-p", "minna-server"
+        bin.install "target/release/minna"
+        bin.install "target/release/minna-core"
+      end
+    else
+      bin.install "minna"
+      bin.install "minna-core"
+    end
   end
 
   def caveats
